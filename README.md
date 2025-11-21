@@ -130,9 +130,16 @@ vibe/
 
 ### Frontend (Vercel)
 1. Connect your GitHub repository to Vercel
-2. Set build command: `npm run build`
-3. Set output directory: `client/dist`
-4. Add environment variable: `VITE_API_BASE_URL=https://your-backend-url.com`
+2. **Important**: In Vercel project settings, set the **Root Directory** to `client`
+3. Vercel will auto-detect Vite, but you can verify:
+   - Build Command: `npm run build` (or leave empty for auto-detect)
+   - Output Directory: `dist` (or leave empty for auto-detect)
+   - Install Command: `npm install` (or leave empty for auto-detect)
+4. **Add environment variable**:
+   - `VITE_API_BASE_URL` = `https://your-backend-url.com` (your Render backend URL)
+5. Deploy!
+
+**Note**: The `vercel.json` file in the `client/` directory handles SPA routing for React Router.
 
 ### Backend (Render)
 1. Connect your GitHub repository to Render
