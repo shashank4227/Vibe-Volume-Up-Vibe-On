@@ -1,0 +1,33 @@
+{
+  "name": "vibe",
+  "version": "1.0.0",
+  "description": "Vibe - Volume Up, Vibe On. A music streaming platform built with MERN stack",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "server:dev": "cd server && npm run dev",
+    "client:dev": "cd client && npm run dev",
+    "server:build": "cd server && npm run build",
+    "client:build": "cd client && npm run build",
+    "build": "npm run server:build && npm run client:build",
+    "server:start": "cd server && npm start",
+    "client:start": "cd client && npm start",
+    "start": "npm run server:start",
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install",
+    "setup": "npm run install:all"
+  },
+  "keywords": [
+    "music",
+    "streaming",
+    "mern",
+    "react",
+    "express",
+    "mongodb",
+    "nodejs"
+  ],
+  "author": "Vibe Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
