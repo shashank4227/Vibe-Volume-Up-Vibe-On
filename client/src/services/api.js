@@ -1,6 +1,33 @@
 import axios from 'axios'
 import { api } from '../config/api'
 
+export const login = async (credentials) => {
+  try {
+    const response = await apiClient.post('/api/auth/login', credentials)
+    return response.data
+  } catch (error) {
+    throw error // Let caller handle
+  }
+}
+
+export const register = async (userData) => {
+  try {
+    const response = await apiClient.post('/api/auth/register', userData)
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export const getMe = async () => {
+  try {
+    const response = await apiClient.get('/api/auth/me')
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
 const apiClient = axios.create({
   baseURL: api.baseURL,
   timeout: 10000,
@@ -30,7 +57,9 @@ apiClient.interceptors.response.use(
     return response
   },
   (error) => {
-    if (error.response?.status === 401) {
+    const originalRequest = error.config
+    // Only redirect if 401 and NOT from login/register endpoints
+    if (error.response?.status === 401 && !originalRequest.url.includes('/auth/login') && !originalRequest.url.includes('/auth/register')) {
       // Handle unauthorized access
       localStorage.removeItem('authToken')
       window.location.href = '/login'

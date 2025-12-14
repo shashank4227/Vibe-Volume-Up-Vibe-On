@@ -4,29 +4,50 @@
 
 @layer base {
   * {
-    @apply border-gray-200;
+    @apply border-gray-800;
   }
   
   body {
-    @apply bg-gray-50 text-gray-900;
+    @apply bg-black text-white;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    background: linear-gradient(135deg, #E94560, #0F3460);
+    @apply text-white font-bold py-3 px-6 rounded-full transition-all duration-200 shadow-lg hover:shadow-red-500/20 hover:scale-105;
   }
   
+ .user-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.user-btn:hover {
+  transform: scale(1.1);
+  color: var(--primary);
+}
+
   .btn-secondary {
     @apply bg-secondary-600 hover:bg-secondary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
   }
   
   .card {
-    @apply bg-white rounded-xl shadow-lg border border-gray-100 p-6;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    @apply rounded-2xl border border-white/10 p-8;
   }
   
   .input-field {
-    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-all duration-200;
+    @apply w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-[#E94560] focus:border-transparent outline-none transition-all duration-200 text-white placeholder-gray-500;
   }
 }

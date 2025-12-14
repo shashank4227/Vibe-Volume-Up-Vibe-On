@@ -1,9 +1,24 @@
 import React, { useState } from 'react';
-import { FiSearch, FiUser, FiMoon, FiSun } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
+import { FiSearch, FiUser, FiLogOut } from 'react-icons/fi';
 import { FaPlay } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
 
 const Header = ({ isDarkMode, toggleTheme }) => {
   const [showMobileSearch, setShowMobileSearch] = useState(false);
+  const { isAuthenticated, user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleUserClick = () => {
+    if (isAuthenticated) {
+      if (window.confirm('Do you want to logout?')) {
+        logout();
+        navigate('/login');
+      }
+    } else {
+      navigate('/login');
+    }
+  };
   return (
     <>
       <header className="header">
@@ -24,7 +39,13 @@ const Header = ({ isDarkMode, toggleTheme }) => {
           <button className="search-toggle" aria-label="Open search" onClick={() => setShowMobileSearch(v => !v)}>
             <FiSearch />
           </button>
-          <FiUser className="user-avatar" />
+          <button 
+            className="user-btn" 
+            onClick={handleUserClick}
+            title={isAuthenticated ? `Logged in as ${user?.username}` : 'Login'}
+          >
+            {isAuthenticated ? <FiLogOut /> : <FiUser />}
+          </button>
         </div>
       </header>
 

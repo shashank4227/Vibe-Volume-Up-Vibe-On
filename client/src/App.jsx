@@ -8,10 +8,13 @@ import Login from './pages/Login'
 import { PlayerProvider } from './context/PlayerContext.jsx'
 import MusicPlayer from './components/MusicPlayer.jsx'
 
+import { AuthProvider } from './context/AuthContext.jsx'
+
 function App() {
   return (
     <Router>
-      <PlayerProvider>
+      <AuthProvider>
+        <PlayerProvider>
         <div className="min-h-screen bg-gradient-to-br from-primary-50 to-secondary-50">
           {/* <Header /> */}
           <main>
@@ -24,7 +27,8 @@ function App() {
           </main>
           <MusicPlayer />
         </div>
-      </PlayerProvider>
+        </PlayerProvider>
+      </AuthProvider>
     </Router>
   )
 }

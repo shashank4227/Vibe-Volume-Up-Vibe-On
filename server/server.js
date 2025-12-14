@@ -28,6 +28,7 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/songs', require('./routes/songs'));
+app.use('/api/auth', require('./routes/auth'));
 
 // Error handling middleware
 app.use(errorHandler);
