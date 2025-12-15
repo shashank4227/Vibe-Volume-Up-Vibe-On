@@ -30,7 +30,7 @@ export const getMe = async () => {
 
 const apiClient = axios.create({
   baseURL: api.baseURL,
-  timeout: 10000,
+  timeout: 60000, // Increased to 60s for Render cold starts
   headers: {
     'Content-Type': 'application/json',
   },

@@ -143,9 +143,10 @@ vibe/
 
 ### Backend (Render)
 1. Connect your GitHub repository to Render
-2. Set build command: `npm install`
-3. Set start command: `npm start`
-4. Add environment variables:
+2. **Important**: Set **Root Directory** to `server`
+3. Set **Build Command**: `npm install`
+4. Set **Start Command**: `npm start`
+5. Add environment variables:
    - `NODE_ENV=production`
    - `MONGODB_URI=your-mongodb-connection-string`
 
