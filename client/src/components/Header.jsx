@@ -10,13 +10,17 @@ const Header = ({ isDarkMode, toggleTheme }) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const searchRef = useRef(null);
+  const mobileSearchRef = useRef(null);
   
   const { isAuthenticated, user, logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
+      if (
+        searchRef.current && !searchRef.current.contains(event.target) &&
+        (!mobileSearchRef.current || !mobileSearchRef.current.contains(event.target))
+      ) {
         setResults([]);
       }
     };
@@ -141,6 +145,7 @@ const Header = ({ isDarkMode, toggleTheme }) => {
 
       {/* Mobile Search - Slide Down */}
       <div 
+        ref={mobileSearchRef}
         className={`md:hidden bg-black overflow-visible transition-all duration-300 ease-in-out ${
           showMobileSearch ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0'
         }`}
