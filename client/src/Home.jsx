@@ -9,11 +9,11 @@ import { usePlayer } from './context/PlayerContext.jsx';
 
 // --- MOCK DATA ---
 const trendingSongs = [
-  { id: 1, title: 'Pushpa 1: The Rise', artist: 'Devi Sri Prasad', image: './pushpa.jpg', audioSrc: './audio/pushpa.mp3' },
-  { id: 2, title: 'Kingdom', artist: 'Anirudh Ravichander', image: './kingdom.jpg', audioSrc: './audio/kingdom.mp3' },
-  { id: 3, title: 'Andhra King Taluka', artist: 'Vivek & Mervin', image: './andhra_king.jpg', audioSrc: './audio/andhra_king.mp3' },
-  { id: 4, title: 'Dude', artist: 'Sai Abhyankar', image: './dude.jpg', audioSrc: './audio/dude.mp3' },
-  { id: 5, title: 'Mirai', artist: 'Gowra Hari', image: 'mirai.jpg', audioSrc: './audio/mirai.mp3' },
+  { id: 5, title: 'Pushpa 1: The Rise', artist: 'Devi Sri Prasad', image: './pushpa.jpg' },
+  { id: 6, title: 'Kingdom', artist: 'Anirudh Ravichander', image: './kingdom.jpg' },
+  { id: 7, title: 'Andhra King Taluka', artist: 'Vivek & Mervin', image: './andhra_king.jpg' },
+  { id: 8, title: 'Dude', artist: 'Sai Abhyankar', image: './dude.jpg' },
+  { id: 9, title: 'Mirai', artist: 'Gowra Hari', image: 'mirai.jpg' },
 ];
 
 const recentlyPlayed = [
@@ -26,9 +26,14 @@ const recentlyPlayed = [
 // ------------------
 
 
+import { useNavigate } from 'react-router-dom';
+
+// ... (imports)
+
 function Home() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const { playSong, setQueue } = usePlayer();
+  const navigate = useNavigate();
 
   const toggleTheme = () => {
     setIsDarkMode(prevMode => !prevMode);
@@ -45,14 +50,13 @@ function Home() {
       
       <main className="main-content">
         <SongRow title="Trending Albums">
-          {trendingSongs.map((song, index) => (
+          {trendingSongs.map((song) => (
             <SongCard 
               key={song.id} 
               image={song.image} 
               title={song.title} 
               artist={song.artist} 
-              audioSrc={song.audioSrc}
-              onClick={() => { setQueue(trendingSongs); playSong(song, { playlist: trendingSongs, startIndex: index }); }}
+              onClick={() => navigate(`/album/${song.id}`)}
             />
           ))}
         </SongRow>

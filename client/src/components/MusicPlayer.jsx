@@ -3,6 +3,7 @@ import { usePlayer } from '../context/PlayerContext.jsx';
 import { BiSkipPrevious, BiSkipNext } from 'react-icons/bi';
 import { AiFillPlayCircle, AiFillPauseCircle } from 'react-icons/ai';
 import { HiOutlineVolumeUp, HiOutlineVolumeOff } from 'react-icons/hi';
+import { albums } from '../data/albums';
 
 const formatTime = (t) => {
   if (!t || Number.isNaN(t)) return '0:00';
@@ -32,11 +33,18 @@ function MusicPlayer() {
 
   if (!currentSong) return null;
 
+  // Find the album for this song to ensure we show the correct album art
+  const foundAlbum = albums.find(album => 
+    album.songs.some(song => song.title === currentSong.title || song.id === currentSong.id)
+  );
+  
+  const displayImage = foundAlbum ? foundAlbum.image : currentSong.image;
+
   return (
     <div className="music-player">
       {/* Left Section: Album Art and Metadata */}
       <div className="mp-left">
-        <img src={currentSong.image} alt={currentSong.title} className="mp-art" />
+        <img src={displayImage} alt={currentSong.title} className="mp-art" />
         <div className="mp-meta">
           <div className="mp-title">{currentSong.title}</div>
           <div className="mp-artist">{currentSong.artist}</div>

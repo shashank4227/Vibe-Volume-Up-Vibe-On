@@ -1,39 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react'; // optional, nice icons
+import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { albums } from '../data/albums';
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const navigate = useNavigate();
 
-  const slides = [
-    {
-      image: './s1.jpg',
-      title: 'Coolie',
-      year: 2025,
-      songs: 8,
-      artist: 'Anirudh Ravichander',
-    },
-    {
-      image: './s2.jpg',
-      title: 'F1',
-      year: 2025,
-      songs: 8,
-      artist: 'Hans Zimmer',
-    },
-    {
-      image: './s3.jpg',
-      title: 'Pushpa 2: The Rule',
-      year: 2024,
-      songs: 5,
-      artist: 'Devi Sri Prasad',
-    },
-    {
-      image: './s4.jpg',
-      title: 'Kalki 2898 AD',
-      year: 2024,
-      songs: 3,
-      artist: 'Santhosh Narayanan',
-    },
-  ];
+  // Use data from albums.js for slides
+  // We filter to show only the featured albums (first 4) in the slideshow
+  const slides = albums.slice(0, 4);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -52,12 +28,16 @@ const Hero = () => {
 
   const current = slides[currentSlide];
 
+  const handlePlayNow = () => {
+    navigate(`/album/${current.id}`);
+  };
+
   return (
     <section className="hero-slideshow">
       <div className="slideshow-container">
         {slides.map((slide, index) => (
           <div
-            key={index}
+            key={slide.id}
             className={`slide ${index === currentSlide ? 'active' : ''}`}
             style={{ backgroundImage: `url(${slide.image})` }}
           />
@@ -75,9 +55,15 @@ const Hero = () => {
         <div className="slide-info">
           <h1 className="slide-title">{current.title}</h1>
           <p className="slide-meta">
-            {current.year} • {current.songs} Songs • {current.artist}
+            {current.year} • {current.songsCount} Songs • {current.artist}
           </p>
-          <button className="play-btn">▶ Play Now</button>
+          <button 
+            onClick={handlePlayNow}
+            className="px-6 py-2 md:px-8 md:py-3 bg-[#FF2DD1] hover:bg-[#FF2DD1]/10 border-2 border-transparent hover:border-[#FF2DD1] rounded-full font-bold flex items-center gap-2 transition-all shadow-lg hover:shadow-[#FF2DD1]/30 text-sm md:text-base w-fit"
+          >
+            <Play size={18} fill="currentColor" />
+            Play Now
+          </button>
         </div>
       </div>
     </section>
